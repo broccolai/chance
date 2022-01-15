@@ -9,7 +9,7 @@ final class ChanceRun<R, C> {
     private final LootTable<R> lootTable;
     private final Collection<Modifier<C>> modifiers;
 
-    public ChanceRun(C context, LootTable<R> lootTable, Collection<Modifier<C>> modifiers) {
+    ChanceRun(final C context, final LootTable<R> lootTable, final Collection<Modifier<C>> modifiers) {
         this.context = context;
         this.lootTable = lootTable;
         this.modifiers = modifiers;
@@ -23,7 +23,7 @@ final class ChanceRun<R, C> {
                 .keySet();
     }
 
-    private Likelihood applyModifiersWithContext(Likelihood likelihood) {
+    private Likelihood applyModifiersWithContext(final Likelihood likelihood) {
         Likelihood modifiedLikelihood = likelihood;
 
         for (Modifier<C> modifier : this.modifiers) {
@@ -33,7 +33,7 @@ final class ChanceRun<R, C> {
         return modifiedLikelihood;
     }
 
-    private boolean roll(Likelihood likelihood) {
+    private boolean roll(final Likelihood likelihood) {
         double rolledChance = ThreadLocalRandom.current().nextDouble();
         return likelihood.value() > rolledChance;
     }

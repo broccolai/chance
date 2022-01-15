@@ -16,7 +16,7 @@ final class ChanceBuilderImplementation<R, C> implements ChanceBuilder<R, C> {
     }
 
     @Override
-    public ChanceBuilder<R, C> modifiers(Collection<Modifier<C>> modifiers) {
+    public ChanceBuilder<R, C> modifiers(final Collection<Modifier<C>> modifiers) {
         this.modifiers.addAll(modifiers);
         return this;
     }

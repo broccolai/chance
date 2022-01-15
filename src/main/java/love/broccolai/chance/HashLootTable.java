@@ -9,7 +9,7 @@ final class HashLootTable<R> implements LootTable<R> {
 
     private final Map<R, Likelihood> rewards;
 
-    public HashLootTable(final Map<R, Likelihood> rewards) {
+    HashLootTable(final Map<R, Likelihood> rewards) {
         this.rewards = rewards;
     }
 
@@ -19,7 +19,7 @@ final class HashLootTable<R> implements LootTable<R> {
     }
 
     @Override
-    public LootTable<R> map(Function<Likelihood, Likelihood> function) {
+    public LootTable<R> map(final Function<Likelihood, Likelihood> function) {
         Map<R, Likelihood> modifiedRewards = new HashMap<>(this.rewards);
         modifiedRewards.replaceAll((reward, likelihood) -> function.apply(likelihood));
 
@@ -27,7 +27,7 @@ final class HashLootTable<R> implements LootTable<R> {
     }
 
     @Override
-    public LootTable<R> filter(Predicate<Likelihood> predicate) {
+    public LootTable<R> filter(final Predicate<Likelihood> predicate) {
         Predicate<Likelihood> negatedPredicate = predicate.negate();
         Map<R, Likelihood> modifiedRewards = new HashMap<>(this.rewards);
 

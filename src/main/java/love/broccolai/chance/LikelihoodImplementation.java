@@ -4,7 +4,7 @@ final class LikelihoodImplementation implements Likelihood {
 
     private final double value;
 
-    public LikelihoodImplementation(final double value) {
+    LikelihoodImplementation(final double value) {
         this.value = value;
     }
 
@@ -14,13 +14,13 @@ final class LikelihoodImplementation implements Likelihood {
     }
 
     @Override
-    public Likelihood multiplicative(double multiplier) {
+    public Likelihood multiplicative(final double multiplier) {
         double modified = this.value * multiplier;
         return new LikelihoodImplementation(modified);
     }
 
     @Override
-    public Likelihood additive(double addition) {
+    public Likelihood additive(final double addition) {
         double modified = this.value + addition;
         return new LikelihoodImplementation(modified);
     }

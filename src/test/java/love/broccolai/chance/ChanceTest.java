@@ -9,7 +9,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static com.google.common.truth.Truth.assertThat;
 
 class ChanceTest {
@@ -29,7 +28,7 @@ class ChanceTest {
                 .build()
                 .roll(new Context());
 
-        assertThat(results).containsExactly(rewardOne);
+        assertThat(results).containsExactly(this.rewardOne);
     }
 
     @Test

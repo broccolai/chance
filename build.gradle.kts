@@ -1,9 +1,22 @@
 plugins {
-    `java-library`
+    val indraVersion = "2.0.6"
+    id("net.kyori.indra") version indraVersion
+    id("net.kyori.indra.publishing") version indraVersion
+    id("net.kyori.indra.checkstyle") version indraVersion
 }
+
+group = "love.broccolai"
+version = "1.0.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
+}
+
+indra {
+    javaVersions {
+        target(17)
+        minimumToolchain(17)
+    }
 }
 
 dependencies {
