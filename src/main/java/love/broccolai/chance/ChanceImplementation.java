@@ -1,24 +1,33 @@
 package love.broccolai.chance;
 
 import java.util.Collection;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 final class ChanceImplementation<R, C> implements Chance<R, C> {
 
-    private final LootTable<R> lootTable;
-    private final Collection<Modifier<C>> modifiers;
+    private final Map<LootTable<R>, Collection<Modifier<C>>> lootTables;
 
-    ChanceImplementation(final LootTable<R> lootTable, final Collection<Modifier<C>> modifiers) {
-        this.lootTable = lootTable;
-        this.modifiers = modifiers;
+    ChanceImplementation(
+            final Map<LootTable<R>, Collection<Modifier<C>>> lootTables
+    ) {
+        this.lootTables = lootTables;
     }
 
     @Override
-    public Collection<R> roll(final C context) {
-        return new ChanceRun<>(
-                context,
-                this.lootTable,
-                this.modifiers
-        ).run();
+    public Collection<? extends R> roll(final C context) {
+        return this.lootTables.entrySet()
+                .stream()
+                .map(entry -> this.handleRun(context, entry))
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
+    }
+
+    private Collection<? extends R> handleRun(
+            final C context,
+            final Map.Entry<LootTable<R>, Collection<Modifier<C>>> entry
+    ) {
+        return new ChanceRun<>(context, entry.getKey(), entry.getValue()).run();
     }
 
 }

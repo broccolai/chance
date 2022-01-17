@@ -4,8 +4,10 @@ import java.util.Map;
 
 final class HashLootTable<R> extends AbstractLootTable<R> {
 
+    private final Map<R, Likelihood> rewards;
+
     HashLootTable(final Map<R, Likelihood> rewards) {
-        super(rewards);
+        this.rewards = rewards;
     }
 
     @Override

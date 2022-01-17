@@ -136,7 +136,6 @@
         </module>
 
         <!-- See https://checkstyle.org/config_design.html -->
-        <module name="DesignForExtension"/>
         <module name="FinalClass"/>
         <module name="HideUtilityClassConstructor"/>
 

@@ -9,13 +9,17 @@ final class ChanceRun<R, C> {
     private final LootTable<R> lootTable;
     private final Collection<Modifier<C>> modifiers;
 
-    ChanceRun(final C context, final LootTable<R> lootTable, final Collection<Modifier<C>> modifiers) {
+    ChanceRun(
+            final C context,
+            final LootTable<R> lootTable,
+            final Collection<Modifier<C>> modifiers
+    ) {
         this.context = context;
         this.lootTable = lootTable;
         this.modifiers = modifiers;
     }
 
-    public Collection<R> run() {
+    public Collection<? extends R> run() {
         return this.lootTable
                 .map(this::applyModifiersWithContext)
                 .filter(this::roll)

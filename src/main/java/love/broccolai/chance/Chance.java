@@ -8,6 +8,6 @@ public interface Chance<R, C> {
         return new ChanceBuilderImplementation<>();
     }
 
-    Collection<R> roll(C context);
+    Collection<? extends R> roll(C context);
 
 }

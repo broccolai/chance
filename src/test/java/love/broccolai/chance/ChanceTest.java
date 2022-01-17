@@ -23,7 +23,7 @@ class ChanceTest {
 
     @Test
     void chanceBase() {
-        Collection<Reward> results = Chance.<Reward, Context>builder()
+        Collection<? extends Reward> results = Chance.<Reward, Context>builder()
                 .lootTable(this.lootTable)
                 .build()
                 .roll(new Context());
@@ -35,9 +35,9 @@ class ChanceTest {
     void chanceNone() {
         Modifier<Context> modifier = (context, result) -> result.multiplicative(0);
 
-        Collection<Reward> results = Chance.<Reward, Context>builder()
+        Collection<? extends Reward> results = Chance.<Reward, Context>builder()
                 .lootTable(this.lootTable)
-                .modifiers(List.of(modifier))
+                .globalModifiers(List.of(modifier))
                 .build()
                 .roll(new Context());
 
@@ -48,9 +48,9 @@ class ChanceTest {
     void chanceAll() {
         Modifier<Context> modifier = (context, result) -> result.additive(1);
 
-        Collection<Reward> results = Chance.<Reward, Context>builder()
+        Collection<? extends Reward> results = Chance.<Reward, Context>builder()
                 .lootTable(this.lootTable)
-                .modifiers(List.of(modifier))
+                .globalModifiers(List.of(modifier))
                 .build()
                 .roll(new Context());
 
