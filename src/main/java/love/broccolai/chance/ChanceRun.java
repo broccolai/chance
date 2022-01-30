@@ -52,14 +52,13 @@ final class ChanceRun<R, C> {
         double stddv = Math.sqrt(rolls * p * (1 - p));
 
         boolean normalized = false;
-        double threeStddv;
-        if (p != 0) {
-            threeStddv = 9 * ((1 - p) / p);
-        } else {
-            threeStddv = 0;
-        }
-        if (rolls > threeStddv) {
-            normalized = true;
+        if (p != 0 && p != 1) {
+            double threeStddv1 = 9 * ((1 - p) / p);
+            double threeStddv2 = 9 * (p / (1 - p));
+
+            if (rolls > threeStddv1 && rolls > threeStddv2) {
+                normalized = true;
+            }
         }
 
         int amount;
