@@ -1,6 +1,7 @@
 package love.broccolai.chance;
 
 import java.util.Collection;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 final class ChanceRun<R, C> {
@@ -40,6 +41,44 @@ final class ChanceRun<R, C> {
     private boolean roll(final Likelihood likelihood) {
         double rolledChance = ThreadLocalRandom.current().nextDouble();
         return likelihood.value() > rolledChance;
+    }
+
+    private int simulateRolls(final Likelihood likelihood, int rolls) {
+        // Simulate 'rolls' amount of times to obtain an object with a success chance of 'likelihood'.
+        // If possible, will normalize the distribution and obtain values therefrom.
+
+        double p = likelihood.value();
+        double mean = rolls * p;
+        double stddv = Math.sqrt(rolls * p * (1 - p));
+
+        boolean normalized = false;
+        if (p != 0 && p != 1) {
+            double threeStddv1 = 9 * ((1 - p) / p);
+            double threeStddv2 = 9 * (p / (1 - p));
+
+            if (rolls > threeStddv1 && rolls > threeStddv2) {
+                normalized = true;
+            }
+        }
+
+        int amount;
+        if (normalized) {
+            Random random = new Random();
+            do {
+                amount = (int) (random.nextGaussian() * stddv + mean + 0.5);
+            } while (amount < 0 || amount > rolls);
+        } else {
+            // If it can not be normalized, do it the old fashioned way.
+
+            amount = 0;
+            for (int i = 0; i < rolls; i++) {
+                if (Math.random() < p) {
+                    amount++;
+                }
+            }
+        }
+
+        return amount;
     }
 
 }
